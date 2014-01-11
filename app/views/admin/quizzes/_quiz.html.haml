@@ -1,0 +1,6 @@
+%tr.quiz
+  %td= quiz.id
+  %td= link_to quiz.name, quiz
+  %td
+    = link_to 'Edit', edit_admin_quiz_path(quiz)
+    = link_to 'Delete', admin_quiz_path(quiz), method: :delete, data: { confirm: 'Are you shure?' }

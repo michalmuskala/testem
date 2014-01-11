@@ -1,0 +1,14 @@
+.quiz.row
+  .col-lg-12
+    %h2= @quiz.name
+    %form
+      - @quiz.questions.each_with_index do |question, index|
+        .question.row
+          .col-lg-12
+            %h3= "#{index+1}. #{question.text}"
+            - question.answers.each do |answer|
+              .answer.row
+                .col-lg-12
+                  %label
+                    %input{ type: :checkbox }
+                    = answer.text

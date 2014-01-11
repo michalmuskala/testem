@@ -1,0 +1,10 @@
+%h2 All currently available quizzes
+
+%table.table
+  %tr
+    %th Id
+    %th Name
+    %th Actions
+  = render(@quizzes)
+
+= link_to 'Create new', new_admin_quiz_path, class: 'btn btn-default'
