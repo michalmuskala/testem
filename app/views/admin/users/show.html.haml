@@ -1,0 +1,12 @@
+%h2
+  User:
+  = @user.email
+.user.row
+  .col-md-2
+    = link_to 'Edit user', edit_admin_user_path(@user), class: 'btn btn-default btn-block'
+  .col-md-10
+    %p.lead
+      Admin:
+      = @user.admin ? 'True' : 'False'
+    - %w[ created_at updated_at remember_created_at current_sign_in_at last_sign_in_at sign_in_count current_sign_in_ip last_sign_in_ip].each do |property|
+      %p= "#{property.humanize}: #{@user.send(property)}"

@@ -5,6 +5,7 @@ Testem::Application.routes.draw do
 
   namespace :admin do
     resources :quizzes
+    resources :users
     root to: 'quizzes#index'
   end
 

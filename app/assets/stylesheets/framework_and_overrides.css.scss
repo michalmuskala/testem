@@ -75,3 +75,19 @@ section {
   padding-bottom: 10px;
   padding-top: 10px;
 }
+ul.answers {
+  list-style: none;
+  padding-left: 20px;
+}
+li.answer {
+  padding-left: 1em;
+  text-indent: -1em;
+}
+li.answer.correct:before {
+  content: '✔';
+  padding-right: 5px;
+}
+li.answer.incorrect:before {
+  content: '✘';
+  padding-right: 5px;
+}

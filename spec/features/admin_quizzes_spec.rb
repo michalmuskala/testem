@@ -19,71 +19,65 @@ feature "Admin managing quizzes" do
 
     # Test list elements
     within first('tr.quiz') do
-      expect(page).to have_link(quiz.name, href: "/quizzes/#{quiz.id}")
+      expect(page).to have_link(quiz.name, href: "/admin/quizzes/#{quiz.id}")
     end
   end
 
   # Slooow due to js
-  scenario "Admin adds new quiz" do #, js: true do
+  scenario "Admin adds new quiz" do
     quiz = build :quiz
+    question = build :question
+    answer = build :answer
     visit '/admin/quizzes/new'
 
     fill_in 'Name', with: quiz.name
+    fill_in 'Question', with: question.text
+    fill_in 'Answer', with: answer.text
     click_button 'Create'
 
-    expect(page).to have_text('Quiz created successfully')
     expect(page).to have_text(quiz.name)
+    expect(page).to have_text(question.text)
+    expect(page).to have_text(answer.text)
+    expect(page).to have_text('Quiz created successfully')
   end
 
-  # context "with an existing full quiz and user" do
-  #   given(:quiz) { create :quiz_with_questions_and_answers }
-  #   given(:user) { create :user }
+  context "with an existing quiz" do
+    given(:quiz) { create :quiz_with_questions_and_answers }
 
-  #   scenario "User must be logged in to see quiz" do
-  #     visit "/quizzes/#{quiz.id}"
+    scenario "Admin views quiz" do
+      visit "admin/quizzes/#{quiz.id}"
 
-  #     expect(current_path).to eq('/users/sign_in')
+      expect(page).to have_text(quiz.name)
+      quiz.questions.each do |question|
+        expect(page).to have_text(question.text)
+        question.answers.each do |answer|
+          expect(page).to have_text(answer.text)
+        end
+      end
+      expect(page).to have_link('Edit quiz')
+      expect(page).to have_link('Remove quiz')
+    end
 
-  #     fill_in 'Email', with: user.email
-  #     fill_in 'Password', with: user.password
-  #     click_button 'Log in'
+    scenario "Admin edits quiz" do
+      visit "admin/quizzes/#{quiz.id}"
 
-  #     expect(page).to have_text('Signed in successfully.')
-  #     # Test whether user is redirected to the quiz page correcttly
-  #     expect(page).to have_text(quiz.name)
-  #   end
+      click_link 'Edit quiz'
 
-  #   context "with authenticated user" do
-  #     background do
-  #       login_as(user, scope: :user)
-  #     end
+      within all(:css, '.question').last do
+        fill_in 'Question', with: 'Edited question'
+      end
+      click_button 'Save'
 
-  #     scenario "User views a quiz" do
-  #       question = quiz.questions.first
-  #       answer = question.answers.first
-  #       visit "/quizzes/#{quiz.id}"
+      expect(page).to have_text('Edited question')
+    end
 
-  #       # Test quiz
-  #       expect(page).to have_text(quiz.name)
-  #       expect(page).to have_text(quiz.description)
-  #       expect(page).to have_css('div.question', count: quiz.questions.count)
-  #       expect(page).to have_selector('form')
+    scenario "Admin deletes quiz" do
+      visit "admin/quizzes/#{quiz.id}"
 
-  #       # Test questions
-  #       within first('div.question') do
-  #         expect(page).to have_text(question.text)
-  #         expect(page).to have_text(question.description)
-  #         expect(page).to have_css('div.answer', count: question.answers.count)
+      click_link 'Remove quiz'
 
-  #         # Test answers
-  #         within first('div.answer') do
-  #           expect(page).to have_selector('label', text: "#{answer.text} #{answer.hint}")
-  #           within 'label' do
-  #             expect(page).to have_css('input[type="checkbox"]')
-  #           end
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
+      expect(page).not_to have_text(quiz.name)
+      expect(page).to have_text('Quiz removed')
+    end
+  end
 end

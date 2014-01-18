@@ -1,11 +1,11 @@
-.nested-fields
+.nested-fields.question
   .row
-    .col-md-2= link_to_remove_association 'Remove question', f, { class: 'btn btn-danger' }
+    .col-md-2= link_to_remove_association 'Remove question', f, { class: 'btn btn-danger btn-block' }
     .col-md-10= f.input :text, as: :string, label: 'Question', label_html: { class: 'sr-only' }, placeholder: 'Question'
   .row
     .col-md-10.col-md-offset-2
       %h4 Answers
-      #answers
+      .answers
         = f.simple_fields_for :answers do |fa|
           = render 'answer_fields', f: fa
         .links

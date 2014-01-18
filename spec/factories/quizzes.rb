@@ -15,11 +15,10 @@ FactoryGirl.define do
     factory :quiz_with_questions_and_answers do
       ignore do
         questions_count 5
-        answers_count 5
       end
 
       after(:create) do |quiz, evaluator|
-        create_list(:question_with_ansers, evaluator.questions_count, quiz: quiz, answers_count: answers_count)
+        create_list(:question_with_ansers, evaluator.questions_count, quiz: quiz)
       end
     end
   end

@@ -1,0 +1,9 @@
+= simple_form_for [:admin, quiz] do |f|
+  = f.input :name, as: :string
+  %h3 Questions
+  .questions
+    = f.simple_fields_for :questions do |fq|
+      = render 'question_fields', f: fq
+    .links
+      = link_to_add_association 'Add question', f, :questions, { class: 'btn btn-default' }
+  = f.submit submit, class: 'btn btn-primary'

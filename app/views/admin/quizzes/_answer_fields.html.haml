@@ -1,4 +1,4 @@
-.nested-fields.row
+.nested-fields.row.answer
   .col-md-8= f.input :text, as: :string, label: 'Answer', label_html: { class: 'sr-only' }, placeholder: 'Answer'
-  .col-md-2= f.input :correct
-  .col-md-2= link_to_remove_association 'Remove answer', f, { class: 'btn btn-danger' }
+  .col-md-2= f.input :correct, label_html: { style: 'margin-top: 5px;' }
+  .col-md-2= link_to_remove_association 'Remove answer', f, { class: 'btn btn-danger btn-block' }

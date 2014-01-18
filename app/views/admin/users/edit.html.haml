@@ -1,0 +1,10 @@
+%h2 Edit user
+
+.row
+  .col-md-12
+    %p 
+      User:
+      = @user.email
+    = simple_form_for [:admin, @user] do |f|
+      = f.input :admin
+      = f.submit 'Save', class: 'btn btn-primary'
