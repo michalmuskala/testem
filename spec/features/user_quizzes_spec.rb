@@ -10,10 +10,10 @@ feature "User accessing quizzes" do
 
     # Test listing quizzes
     expect(page).to have_text("All currently available quizzes")
-    expect(page).to have_css('div.quiz', count: 5)
+    expect(page).to have_css('.quiz', count: 5)
 
     # Test list elements
-    within first('div.quiz') do
+    within first('.quiz') do
       expect(page).to have_link(quiz.name, href: "/quizzes/#{quiz.id}")
     end
   end
@@ -50,19 +50,15 @@ feature "User accessing quizzes" do
         # Test quiz
         expect(page).to have_text(quiz.name)
         expect(page).to have_css('div.question', count: quiz.questions.count)
-        expect(page).to have_selector('form')
 
         # Test questions
         within first('div.question') do
           expect(page).to have_text(question.text)
-          expect(page).to have_css('div.answer', count: question.answers.count)
+          expect(page).to have_css('.answer', count: question.answers.count)
 
           # Test answers
-          within first('div.answer') do
-            expect(page).to have_selector('label', text: answer.text)
-            within 'label' do
-              expect(page).to have_css('input[type="checkbox"]')
-            end
+          within first('.answer') do
+            expect(page).to have_text(answer.text)
           end
         end
       end
