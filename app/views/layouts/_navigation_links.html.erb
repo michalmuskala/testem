@@ -1,7 +1,7 @@
-<li>
-  <%= link_to('Solutions', solutions_path) %>
-</li>
 <% if user_signed_in? %>
+  <li>
+    <%= link_to('Solutions', solutions_path) %>
+  </li>
   <li>
   <%= link_to('Edit profile', edit_user_registration_path) %>
   </li>
