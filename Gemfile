@@ -16,6 +16,10 @@ gem 'devise'
 gem 'simple_form'
 gem 'cocoon'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'factory_girl_rails'
@@ -29,7 +33,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'poltergeist'
   gem 'forgery', '~> 0.5.0'
 end
 
