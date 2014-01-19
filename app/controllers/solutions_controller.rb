@@ -20,7 +20,16 @@ class SolutionsController < ApplicationController
   end
 
   def index
-    @solutions = current_user.solutions.includes(:quiz_version).all
+    @solutions = current_user.solutions.includes(:quiz_version).load
+  end
+
+  def deliver
+    @solution = current_user.solutions.includes(:quiz_version).find(params[:id])
+    if UserMailer.solution(@solution).deliver
+      redirect_to @solution, notice: 'Email delivered'
+    else
+      redirect_to @solution, alert: "Email couldn't be delivered"
+    end
   end
 
 private

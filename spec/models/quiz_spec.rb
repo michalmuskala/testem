@@ -30,28 +30,11 @@ describe Quiz do
       expect(quiz.current_version).to be_a QuizVersion
     end
 
-    it 'should return the newest version' do
-      ver1 = quiz.versions.create
-      ver2 = quiz.versions.create
-
-      expect(quiz.current_version).to eq ver2
-    end
-
     it 'should return new version when quiz is changed' do
       ver1 = quiz.versions.create
       quiz.update name: 'New name'
 
       expect(quiz.current_version).not_to eq ver1
-    end
-  end
-
-  describe '.all_versioned' do
-    before { create_list :quiz_with_questions_and_answers, 10 }
-    let(:result) { Quiz.all_versioned }
-
-    it 'should return list of current_versions' do
-      expect(result).to be_an Array
-      expect(result.first).to be_a QuizVersion
     end
   end
 end

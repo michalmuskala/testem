@@ -9,10 +9,6 @@ class Quiz < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def self.all_versioned
-    all.map { |quiz| quiz.current_version }
-  end
-
   def current_version 
     if versions.last && versions.last.created_at >= updated_at
       versions.last

@@ -5,7 +5,8 @@
       .col-md-2
         %p.lead
           Mark:
-          = "#{@solution.mark.to_i}/#{@solution.quiz_version.total.to_i}"
+          = @solution.final_mark
+        = link_to 'Deliver results email', deliver_solution_path(@solution), class: 'btn btn-primary'
       .col-md-10
         - @solution.quiz_version.questions.each_with_index do |question, question_index|
           .question.row

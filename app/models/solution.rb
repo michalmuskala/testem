@@ -15,6 +15,10 @@ class Solution < ActiveRecord::Base
     @decoded ||= ActiveSupport::JSON.decode(self[:answers])
   end
 
+  def final_mark
+    "#{mark.to_i}/#{quiz_version.total.to_i}"
+  end
+
 private
 
   def compute_mark

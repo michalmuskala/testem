@@ -7,7 +7,7 @@ class QuizVersion < ActiveRecord::Base
   before_save :populate_content
   before_save :compute_total
 
-  default_scope -> { order('created_at DESC') }
+  default_scope -> { order(created_at: :desc, id: :desc) }
 
   def questions
     decoded[:questions].map do |question|
