@@ -1,6 +1,5 @@
 module SimpleQuiz
   class Question
-    # include ActiveModel::Naming
     attr_accessor :text
     attr_reader :answers
 
@@ -13,6 +12,10 @@ module SimpleQuiz
       @answers = hash.map do |answer|
         SimpleQuiz::Answer.new(answer)
       end
+    end
+
+    def persisted?
+      false
     end
   end
 end

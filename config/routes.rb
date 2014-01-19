@@ -1,7 +1,12 @@
 Testem::Application.routes.draw do
 
   devise_for :users
-  get 'quizzes/:id', to: 'quizzes#show', as: :quiz
+  resources :quizzes, only: [:show, :index] do
+    resources :solutions, only: [:new]
+  end
+  resources :solutions, only: [:create, :show, :index] do
+    get :deliver, on: :member
+  end
 
   namespace :admin do
     resources :quizzes

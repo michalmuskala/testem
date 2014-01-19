@@ -1,0 +1,20 @@
+.quiz.row
+  .col-md-12
+    %h2= @quiz.name
+    .row
+      .col-md-2
+        %p.text-muted Please remember it's a multiple-choice test. Consider carefully each answer whether it's true or false. Good luck!
+      .col-md-10
+        = simple_form_for @quiz, url: solutions_path(@quiz.quiz), method: :post do |f|
+          = f.input :id, as: :hidden
+          - @quiz.questions.each_with_index do |question, question_index|
+            = f.simple_fields_for "questions[#{question_index}]" do |fq|
+              .question.row
+                .col-md-12
+                  %p= "#{question_index+1}. #{question.text}"
+                  %ul
+                    - question.answers.each_with_index do |answer, answer_index|
+                      = fq.simple_fields_for "answers[#{answer_index}]" do |fa|
+                        = fa.input :response, as: :boolean, label: answer.text, input_html: { checked: false }
+          .links
+            = f.submit 'Save', class: 'btn btn-primary'

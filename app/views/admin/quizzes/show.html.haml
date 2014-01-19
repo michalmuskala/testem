@@ -7,10 +7,26 @@
         %br
         = link_to 'Remove quiz', admin_quiz_path(@quiz), method: 'delete', class: 'btn btn-danger btn-block', data: { confirmation: 'Are you shure?' }
       .col-md-10
-        - @quiz.questions.each_with_index do |question, index|
-          .question.row
-            .col-lg-12
-              %p= "#{index+1}. #{question.text}"
-              %ul.answers
-                - question.answers.each do |answer|
-                  %li.answer{class: (answer.correct ? 'correct' : 'incorrect')}= answer.text
+        .panel.panel-primary
+          .panel-heading
+            %h4.panel-title Current state
+          .panel-body
+            - @quiz.questions.each_with_index do |question, index|
+              .question.row
+                .col-lg-12
+                  %p= "#{index+1}. #{question.text}"
+                  %ul.answers
+                    - question.answers.each do |answer|
+                      %li.answer{class: (answer.correct ? 'correct' : 'incorrect')}= answer.text
+        - @quiz.versions.each_with_index do |quiz_version, qv_index|
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title= quiz_version.created_at
+            .panel-body
+              - quiz_version.questions.each_with_index do |question, index|
+                .question.row
+                  .col-lg-12
+                    %p= "#{index+1}. #{question.text}"
+                    %ul.answers
+                      - question.answers.each do |answer|
+                        %li.answer{class: (answer.correct ? 'correct' : 'incorrect')}= answer.text

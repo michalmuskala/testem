@@ -1,0 +1,5 @@
+%h2 Your solved quizzes
+
+%ul
+  - @solutions.each do |solution|
+    %li.solution= link_to solution.quiz_version.name, solution

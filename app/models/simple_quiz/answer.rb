@@ -1,18 +1,14 @@
 module SimpleQuiz
   class Answer
-    # include ActiveModel::Naming
-    attr_accessor :text, :correct, :was
+    attr_accessor :text, :correct
 
-    def initialize(attributes)
+    def initialize(attributes = {})
       self.text = attributes[:text]
       self.correct = attributes[:correct]
     end
 
-    def to_hash
-      {
-        text: text,
-        correct: correct
-      }
+    def persisted?
+      false
     end
   end
 end

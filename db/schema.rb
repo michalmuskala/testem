@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140119122134) do
+ActiveRecord::Schema.define(version: 20140119142031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140119122134) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "total"
   end
 
   add_index "quiz_versions", ["quiz_id"], name: "index_quiz_versions_on_quiz_id", using: :btree
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140119122134) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "mark"
   end
 
   add_index "solutions", ["quiz_version_id"], name: "index_solutions_on_quiz_version_id", using: :btree

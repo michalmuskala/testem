@@ -83,6 +83,12 @@ li.answer {
   padding-left: 1em;
   text-indent: -1em;
 }
+li.answer.good {
+  color: green;
+}
+li.answer.bad {
+  color: red;
+}
 li.answer.correct:before {
   content: '✔';
   padding-right: 5px;

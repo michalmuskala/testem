@@ -1,0 +1,16 @@
+.quiz.row
+  .col-md-12
+    %h2= @solution.quiz_version.name
+    .row
+      .col-md-2
+        %p.lead
+          Mark:
+          = "#{@solution.mark.to_i}/#{@solution.quiz_version.total.to_i}"
+      .col-md-10
+        - @solution.quiz_version.questions.each_with_index do |question, question_index|
+          .question.row
+            .col-lg-12
+              %p= "#{question_index+1}. #{question.text}"
+              %ul.answers
+                - question.answers.each_with_index do |answer, answer_index|
+                  %li.answer{class: [(answer.correct ? 'correct' : 'incorrect'), (@solution.decoded[question_index][answer_index] == answer.correct ? 'good' : 'bad')]}= answer.text

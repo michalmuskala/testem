@@ -2,8 +2,7 @@
 
 FactoryGirl.define do
   factory :solution do
-    quiz_version nil
-    answers "MyText"
-    user nil
+    quiz_version { create :quiz_version }
+    user
   end
 end

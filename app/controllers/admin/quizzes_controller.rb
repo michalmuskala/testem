@@ -1,5 +1,5 @@
 class Admin::QuizzesController < Admin::BaseController
-  before_action :find_quiz_with_includes, only: [:show, :edit, :update, :destroy]
+  before_action :find_quiz_with_includes, only: [:edit, :update, :destroy]
 
   def index
     @quizzes = Quiz.all
@@ -20,6 +20,7 @@ class Admin::QuizzesController < Admin::BaseController
   end
 
   def show
+    @quiz = Quiz.includes(questions: :answers, quiz_versions: {}).find(params[:id])
   end
 
   def edit

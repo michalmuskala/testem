@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :quiz_version do
-    quiz nil
-    content "MyText"
+    quiz { create :quiz_with_questions_and_answers }
   end
 end
